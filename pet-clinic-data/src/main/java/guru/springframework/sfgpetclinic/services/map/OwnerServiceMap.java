@@ -10,6 +10,7 @@ import guru.springframework.sfgpetclinic.services.OwnerService;
 
 import java.util.Set;
 
+@Service
 public class OwnerServiceMap extends AbstractMapServices<Owner, Long> implements OwnerService {
 
     @Override
