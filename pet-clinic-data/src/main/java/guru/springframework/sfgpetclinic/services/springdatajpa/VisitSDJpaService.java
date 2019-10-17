@@ -21,6 +21,7 @@ public class VisitSDJpaService implements VisitService {
         this.visitRepository = visitRepository;
     }
 
+
     @Override
     public Set<Visit> findAll() {
         Set<Visit> visits = new HashSet<>();

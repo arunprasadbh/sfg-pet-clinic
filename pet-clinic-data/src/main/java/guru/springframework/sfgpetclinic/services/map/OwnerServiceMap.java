@@ -7,11 +7,13 @@ package guru.springframework.sfgpetclinic.services.map;
 import guru.springframework.sfgpetclinic.model.Owner;
 import guru.springframework.sfgpetclinic.services.CrudService;
 import guru.springframework.sfgpetclinic.services.OwnerService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"default", "map"})
 public class OwnerServiceMap extends AbstractMapServices<Owner, Long> implements OwnerService {
 
     @Override
