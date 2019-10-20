@@ -18,6 +18,7 @@ class OwnerServiceMapTest {
 
     @Test
     void findAll() {
+        assertEquals(1,1);
     }
 
     @Test
