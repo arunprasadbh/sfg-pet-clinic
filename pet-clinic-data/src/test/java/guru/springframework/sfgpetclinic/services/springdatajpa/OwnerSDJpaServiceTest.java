@@ -12,10 +12,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
@@ -39,15 +43,17 @@ class OwnerSDJpaServiceTest {
     @InjectMocks
     OwnerSDJpaService ownerService;
 
+    Owner returnOwner;
     @BeforeEach
     void setUp() {
+        returnOwner = new Owner();
+        returnOwner.setId(1L);
+        returnOwner.setLastName(lastName);
     }
 
     @Test
     void findByLastName() {
-        Owner returnOwner = new Owner();
-        returnOwner.setId(1L);
-        returnOwner.setLastName(lastName);
+
 
         when(ownerRepository.findByLastName(any())).thenReturn(Optional.of(returnOwner));
         Owner arun = ownerService.findByLastName(lastName);
@@ -56,18 +62,42 @@ class OwnerSDJpaServiceTest {
 
     @Test
     void findAll() {
+        Set<Owner> returnOwersSet = new HashSet<>();
+        Owner owner1 = new Owner();
+        owner1.setId(1L);
+        Owner owner2 = new Owner();
+        owner2.setId(2L);
+        returnOwersSet.add(owner1);
+        returnOwersSet.add(owner2);
+
+        when(ownerService.findAll()).thenReturn(returnOwersSet);
+        Set<Owner> owners = ownerService.findAll();
+
+        assertNotNull(owners);
+        assertEquals(2, owners.size());
     }
 
     @Test
     void findById() {
+
+        when(ownerRepository.findById(anyLong())).thenReturn(Optional.of(returnOwner));
+
+        Owner owner = ownerService.findById(1L);
+
+        assertNotNull(owner);
     }
 
     @Test
     void save() {
+        Owner owner1 = new Owner();
+        owner1.setId(1L);
     }
 
     @Test
     void delete() {
+        ownerService.delete(returnOwner);
+
+        verify(ownerRepository).delete(any());
     }
 
     @Test
